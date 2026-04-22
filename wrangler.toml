@@ -1,0 +1,17 @@
+name = "silverbackai-site"
+main = "worker.js"
+compatibility_date = "2025-04-01"
+account_id = "bafa242dd95d3fdce72540d20accd0a2"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[routes]]
+pattern = "silverbackai.agency"
+custom_domain = true
+
+[[routes]]
+pattern = "www.silverbackai.agency"
+custom_domain = true
