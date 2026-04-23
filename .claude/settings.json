@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__github__pull_request_read",
+      "mcp__3e1e2ac9-24fd-4b07-8684-1b924ec68619__accounts_list",
+      "mcp__3e1e2ac9-24fd-4b07-8684-1b924ec68619__workers_list",
+      "mcp__3e1e2ac9-24fd-4b07-8684-1b924ec68619__workers_get_worker",
+      "mcp__3e1e2ac9-24fd-4b07-8684-1b924ec68619__workers_get_worker_code",
+      "mcp__357fd93c-91d7-4b22-9115-20d7fddd4fbb__list_teams",
+      "mcp__357fd93c-91d7-4b22-9115-20d7fddd4fbb__list_projects"
+    ]
+  }
+}
