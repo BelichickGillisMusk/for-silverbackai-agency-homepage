@@ -31,7 +31,7 @@ The app is a **local frontend** that calls **cloud backends**:
 - **Gemini** (chat, images, TTS): `GEMINI_API_KEY` in `.env.local` or shell env. Get a key from https://aistudio.google.com/apikey
 - **Firebase** (Google sign-in, Firestore gallery): `firebase-applet-config.json` → project `gen-lang-client-0013150741`, database `ai-studio-769bfd01-0ae2-425e-97c8-368ca9eebd15`
 
-Run `npm run check:gcp` to verify `.env.local` and Gemini API reachability before testing AI Lab chat.
+Run `npm run check:gcp` before testing AI Lab chat. It exits `1` without `GEMINI_API_KEY` — that is expected and does **not** block UI development or Firebase sign-in testing.
 
 AI Lab path: http://localhost:3000 → Client Tools → AI Lab → Sign in with Google → **Ultra-Fast Chat**.
 
