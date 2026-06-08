@@ -27,6 +27,12 @@ export default function AILab() {
   if (!user) {
     return (
       <div className="min-h-screen pt-32 px-6 flex flex-col items-center">
+        {!hasGeminiApiKey && (
+          <div className="mb-8 max-w-lg rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 text-center">
+            <strong className="text-amber-300">Gemini not configured for local dev.</strong>{' '}
+            {geminiSetupMessage}
+          </div>
+        )}
         <Sparkles className="w-16 h-16 text-accent mb-6 opacity-80" />
         <h1 className="text-4xl font-display uppercase tracking-widest mb-4">AI Laboratory</h1>
         <p className="text-dim max-w-lg text-center mb-10">
