@@ -24,15 +24,27 @@ See `package.json` and `README.md`:
 - Build: `npm run build`
 - Preview production build: `npm run preview`
 
+### Local dev + Google Cloud
+
+The app is a **local frontend** that calls **cloud backends**:
+
+- **Gemini** (chat, images, TTS): `GEMINI_API_KEY` in `.env.local` or shell env. Get a key from https://aistudio.google.com/apikey
+- **Firebase** (Google sign-in, Firestore gallery): `firebase-applet-config.json` → project `gen-lang-client-0013150741`, database `ai-studio-769bfd01-0ae2-425e-97c8-368ca9eebd15`
+
+Run `npm run check:gcp` to verify `.env.local` and Gemini API reachability before testing AI Lab chat.
+
+AI Lab path: http://localhost:3000 → Client Tools → AI Lab → Sign in with Google → **Ultra-Fast Chat**.
+
 ### Environment variables
 
-- `GEMINI_API_KEY` — required for hero image generation and **AI Lab** (image/chat/TTS). Set in `.env.local`. Most UI-only views work without it (hero falls back to Unsplash).
+- `GEMINI_API_KEY` — required for hero image generation and **AI Lab** (image/chat/TTS). Set in `.env.local` or export in shell (Vite also reads `process.env.GEMINI_API_KEY`). UI-only views work without it (hero falls back to Unsplash).
 - `DISABLE_HMR=true` — disables Vite HMR (used in AI Studio agent mode); leave unset for normal local dev.
 
-Firebase config is committed in `firebase-applet-config.json`; AI Lab auth/gallery needs internet access to Firebase.
+Firebase Auth on localhost requires `localhost` in Firebase Console → Authentication → Authorized domains (usually present by default).
 
 ### Non-obvious notes
 
 - Deep link: `?appParams=intake` opens the SMS Toolkit intake view directly.
 - `express` is listed in `package.json` but unused — no Express server to start.
-- `.env.example` lists `VITE_GEMINI_API_KEY`; the app reads `GEMINI_API_KEY` via `vite.config.ts` `define`, not `VITE_` prefix.
+- Shared Gemini client: `src/lib/gemini.ts`. Missing key shows a banner in AI Lab.
+- `npm run check:gcp` — validates `.env.local` + Gemini API without starting the dev server.

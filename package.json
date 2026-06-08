@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
+    "check:gcp": "node scripts/check-gcp-local.mjs",
     "deploy": "vite build && wrangler deploy"
   },
   "dependencies": {

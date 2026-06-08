@@ -4,12 +4,10 @@ import {
   Image as ImageIcon, Video, Music, Mic, Zap, Search, 
   MessageSquare, Camera, Sparkles, Settings2, Download, Play, Square, Loader2, X
 } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
+import { geminiClient as ai, hasGeminiApiKey, geminiSetupMessage } from '../lib/gemini';
 import { auth, loginWithGoogle, logout, db } from '../lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 // We define a fallback layout for the lab.
 export default function AILab() {
@@ -61,6 +59,12 @@ function AILabDashboard({ user }: { user: User }) {
 
   return (
     <div className="pt-24 flex min-h-screen bg-background relative overflow-hidden">
+      {!hasGeminiApiKey && (
+        <div className="absolute top-24 left-0 right-0 z-20 mx-6 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+          <strong className="text-amber-300">Gemini not configured for local dev.</strong>{' '}
+          {geminiSetupMessage}
+        </div>
+      )}
       {/* Sidebar */}
       <div className="w-64 border-r border-border p-4 flex flex-col z-10 bg-card/50 backdrop-blur">
         <div className="mb-8 p-4 bg-black/20 rounded-lg border border-border">
@@ -477,6 +481,10 @@ function FastChat({ user }: { user: User }) {
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
+    if (!hasGeminiApiKey) {
+      setMsgs(prev => [...prev, { my: false, text: geminiSetupMessage }]);
+      return;
+    }
     const txt = input;
     setMsgs(prev => [...prev, { my: true, text: txt }]);
     setInput('');
