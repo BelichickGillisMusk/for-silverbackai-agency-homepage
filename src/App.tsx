@@ -32,7 +32,7 @@ import {
   Sparkles,
   Languages
 } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
+import { geminiClient as ai } from './lib/gemini';
 import { translations, Language } from './translations';
 import SmsToolkit from './SmsToolkit';
 import HotButton from './HotButton';
@@ -40,8 +40,6 @@ import AILab from './components/AILab';
 import GillySecurity from './GillySecurity';
 import PcInvestments from './PcInvestments';
 import ShowcasePage from './components/ShowcasePage';
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 // This is the "Silverback Brain" — The data Dave needs
 const INITIAL_DATA = [
